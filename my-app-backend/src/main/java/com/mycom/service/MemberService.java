@@ -17,4 +17,5 @@ public class MemberService {
 	public List<MemberVo> selectMember(){
 		return mapper.selectMember();
 	}
+	//왜 안돼ㅡㅡ
 }	
