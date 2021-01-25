@@ -12,7 +12,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
  
 @Configuration
-@MapperScan(basePackages="com.mycom.dao")
+@MapperScan(basePackages="com.mycom.*")
 @EnableTransactionManagement
 public class DatabaseConfig {
  
@@ -21,7 +21,7 @@ public class DatabaseConfig {
         final SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-        sessionFactory.setMapperLocations(resolver.getResources("mapper/*.xml"));
+        sessionFactory.setMapperLocations(resolver.getResources("classpath:*.xml"));
         return sessionFactory.getObject();
     }
     

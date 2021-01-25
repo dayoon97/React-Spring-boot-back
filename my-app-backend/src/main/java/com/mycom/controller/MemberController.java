@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mycom.service.MemberService;
+import com.mycom.service.MemberServiceImpl;
 import com.mycom.vo.MemberVo;
 
-@RestController
+@RestController	
 public class MemberController {
 
 	@Autowired
-	MemberService memberService;
+	private MemberServiceImpl ms;
 	
 	@RequestMapping(value = "/")
     public String home() throws Exception{
@@ -24,7 +24,7 @@ public class MemberController {
 	@RequestMapping(value="/member")
 	public ModelAndView Member() throws Exception{
 		
-		List<MemberVo> memberList = memberService.selectMember();
+		List<MemberVo> memberList = ms.selectMember();
 		ModelAndView mv = new ModelAndView();
 		
 		mv.addObject("list", memberList);
