@@ -17,29 +17,30 @@ import com.mycom.model.vo.MemberVo;
 
 
 @RestController
-//@RequestMapping("/api")
-//@CrossOrigin(origins= {"http://localhost:3000"})
+@CrossOrigin("http://localhost:3000")
+@RequestMapping("/")
 public class MemberController {
 	
 	@Autowired
 	private MemberServiceImpl ms;
 	
-	@RequestMapping(value= "/{name}.html")
-	public String page(@PathVariable String name, Model model) {
-		model.addAttribute("pageName", name);
-		return "page";
+	
+	@RequestMapping("/hello")
+	public String sayhello() {
+		return "hello";
 	}
 	
-//	@GetMapping(value="/member")
-//	public ModelAndView selectMember(ModelAndView mv) {
-//
-//		List<MemberVo> list = new ArrayList<MemberVo>();
-//		list = ms.selectMember();
-//
-//		System.out.println(list);
-//		mv.addObject("list", list);
-//		
-//		return mv;
-//	}
+	@GetMapping(value="/member")
+	public ModelAndView selectMember(ModelAndView mv) {
+
+		List<MemberVo> list = new ArrayList<MemberVo>();
+		list = ms.selectMember();
+
+		System.out.println(list);
+		mv.addObject("list", list);
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
 	
 }
