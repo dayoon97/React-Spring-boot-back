@@ -11,4 +11,6 @@ import com.mycom.model.vo.MemberVo;
 @Mapper
 public interface MemberMapper {
 	List<MemberVo> selectMember();
+
+	int updateMember();
 }

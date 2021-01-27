@@ -17,5 +17,10 @@ public class MemberServiceImpl implements MemberService {
 	public List<MemberVo> selectMember() {
 		return mapper.selectMember();
 	}
-	
+
+	@Override
+	public int updateMember(String newName) {
+		return mapper.updateMember();
+	}
+
 }

@@ -5,4 +5,8 @@
 	<select id="selectMember" resultType="com.mycom.model.vo.MemberVo">
 		SELECT * from Node_db.member
 	</select>
+	
+	<update id="updateMember" parameterType="com.mycom.model.vo.MemberVo">
+		UPDATE node_db.`member`set Name = #{newName} where Name = #{oldName}
+	</update>
 </mapper>
