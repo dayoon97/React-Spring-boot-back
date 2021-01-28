@@ -3,13 +3,10 @@ package com.mycom.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,6 +21,12 @@ public class MemberController {
 	@Autowired
 	private MemberService ms;
 	
+	@GetMapping("/")
+	public String root() {
+		return "redirect:member";
+	}
+	
+	
 	@GetMapping("/member")
 	public List<MemberVo> selectMember(ModelAndView mv) {
 
@@ -33,29 +36,17 @@ public class MemberController {
 		return list;
 	}
 	
-	@PutMapping(value = "/{oldName}", produces="text/plain;charset=UTF-8")
-	public String updateMember(@PathVariable("oldName") String oldName, @RequestParam String newName) {
+	@PutMapping(value = "/name", produces="text/plain;charset=UTF-8")
+	public String updateMember(@RequestParam(value="newName", required = false) String newName, @RequestParam(value="oldName", required = false) String oldName) {
 		
-		System.out.println(newName);
-		System.out.println(oldName);
+		int data = ms.updateMember(oldName, newName);
+		System.out.println(data);
 		
-		
-//		HashMap<String, String> map = new HashMap<String, String>();
-//		map.put(oldName, "oldName");
-//		map.put(newName, "newName");
-		
-//		List<MemberVo> list = new ArrayList<MemberVo>();
-//		list = ms.updateMember();
-//		System.out.println(list);
-		
-//		ms.updateMember(newName);
-//		if(ms.updateMember(newName) > 0) {
-//			return "redirect:/member";
-//		} else {
-//			return "redirect:/member";
-//		}
-		
-		return "1";
+		if(data > 0) {
+			return "redirect:/";
+		} else {
+			return "0";
+		}
 	}
 	
 }
