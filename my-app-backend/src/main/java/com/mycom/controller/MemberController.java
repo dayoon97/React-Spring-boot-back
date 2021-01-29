@@ -1,7 +1,6 @@
 package com.mycom.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,6 @@ public class MemberController {
 		return "redirect:member";
 	}
 	
-	
 	@GetMapping("/member")
 	public List<MemberVo> selectMember(ModelAndView mv) {
 
@@ -37,13 +35,30 @@ public class MemberController {
 	}
 	
 	@PutMapping(value = "/name", produces="text/plain;charset=UTF-8")
-	public String updateMember(@RequestParam(value="newName", required = false) String newName, @RequestParam(value="oldName", required = false) String oldName) {
+	public String updateName(@RequestParam(value="newName", required = false) String newName, @RequestParam(value="oldName", required = false) String oldName) {
 		
 		int data = ms.updateMember(oldName, newName);
 		System.out.println(data);
 		
 		if(data > 0) {
-			return "redirect:/";
+			return "1";
+		} else {
+			return "0";
+		}
+	}
+	
+	@PutMapping("/phone")
+	public String updatePhone(@RequestParam(value="newPhone", required = false) String newPhone, @RequestParam(value="oldPhone", required = false) String oldPhone) {
+		
+		System.out.println(oldPhone);
+		System.out.println(newPhone);
+		
+		int data = ms.updatePhone(oldPhone, newPhone);
+		System.out.println(data);
+		
+		
+		if(data > 0) { 
+			return "1";
 		} else {
 			return "0";
 		}

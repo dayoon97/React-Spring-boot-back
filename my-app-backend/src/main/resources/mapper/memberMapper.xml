@@ -9,4 +9,8 @@
 	<update id="updateMember">
 		UPDATE node_db.`member`set Name = #{newName} where Name = #{oldName}
 	</update>
+	
+	<update id="updatePhone">
+		UPDATE node_db.`member`set Phone = #{newPhone} where Phone = #{oldPhone}
+	</update>
 </mapper>

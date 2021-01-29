@@ -1,6 +1,5 @@
 package com.mycom.model.service;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +23,11 @@ public class MemberServiceImpl implements MemberService {
 		int cnt = mapper.updateMember(oldName, newName);
 		System.out.println("serviceImpl: " + cnt);
 		return cnt;
+	}
+
+	@Override
+	public int updatePhone(String oldPhone, String newPhone) {
+		return mapper.updatePhone(oldPhone, newPhone);
 	}
 
 }

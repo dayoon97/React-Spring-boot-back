@@ -1,6 +1,5 @@
 package com.mycom.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -14,4 +13,6 @@ public interface MemberMapper {
 	List<MemberVo> selectMember();
 
 	int updateMember(String oldName, String newName);
+
+	int updatePhone(String oldPhone, String newPhone);
 }
