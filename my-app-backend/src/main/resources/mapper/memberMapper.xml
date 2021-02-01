@@ -13,4 +13,9 @@
 	<update id="updatePhone">
 		UPDATE node_db.`member`set Phone = #{newPhone} where Phone = #{oldPhone}
 	</update>
+	
+	<insert id="insertMember">
+		insert into node_db.`member` (no, Name, Phone, Gender)
+		values (no, #{name}, #{phone}, #{gender});
+	</insert>
 </mapper>

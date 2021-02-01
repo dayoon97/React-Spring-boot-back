@@ -15,4 +15,6 @@ public interface MemberMapper {
 	int updateMember(String oldName, String newName);
 
 	int updatePhone(String oldPhone, String newPhone);
+
+	int insertMember(String name, String phone, String gender);
 }

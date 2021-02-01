@@ -30,4 +30,9 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.updatePhone(oldPhone, newPhone);
 	}
 
+	@Override
+	public int insertMember(String name, String phone, String gender) {
+		return mapper.insertMember(name, phone, gender);
+	}
+
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,7 +26,7 @@ public class MemberController {
 		return "redirect:member";
 	}
 	
-	@GetMapping("/member")
+	@GetMapping("/list")
 	public List<MemberVo> selectMember(ModelAndView mv) {
 
 		List<MemberVo> list = new ArrayList<MemberVo>();
@@ -34,7 +35,7 @@ public class MemberController {
 		return list;
 	}
 	
-	@PutMapping(value = "/name", produces="text/plain;charset=UTF-8")
+	@PutMapping("/name")
 	public String updateName(@RequestParam(value="newName", required = false) String newName, @RequestParam(value="oldName", required = false) String oldName) {
 		
 		int data = ms.updateMember(oldName, newName);
@@ -64,4 +65,16 @@ public class MemberController {
 		}
 	}
 	
+	@PostMapping("/member")
+	public String insertMember(@RequestParam(value="name", required = false) String name, @RequestParam(value="phone", required = false) String phone, 
+			@RequestParam(value="gender", required = false) String gender) {
+		
+		int data = ms.insertMember(name, phone, gender);
+		
+		if(data > 0) {
+			return "1";
+		} else {
+			return "0";
+		}
+	}
 }
