@@ -35,4 +35,9 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.insertMember(name, phone, gender);
 	}
 
+	@Override
+	public int deleteMember(int no) {
+		return mapper.deleteMember(no);
+	}
+
 }

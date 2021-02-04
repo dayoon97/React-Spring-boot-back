@@ -18,4 +18,8 @@
 		insert into node_db.`member` (no, Name, Phone, Gender)
 		values (no, #{name}, #{phone}, #{gender});
 	</insert>
+	
+	<delete id="deleteMember">
+		delete from node_db.`member` where no = ${no}
+	</delete>
 </mapper>

@@ -14,4 +14,6 @@ public interface MemberService {
 
 	int insertMember(String name, String phone, String gender);
 
+	int deleteMember(int no);
+
 }

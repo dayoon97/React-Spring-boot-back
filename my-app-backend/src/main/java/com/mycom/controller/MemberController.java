@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -70,6 +71,18 @@ public class MemberController {
 			@RequestParam(value="gender", required = false) String gender) {
 		
 		int data = ms.insertMember(name, phone, gender);
+		
+		if(data > 0) {
+			return "1";
+		} else {
+			return "0";
+		}
+	}
+	
+	@DeleteMapping("/delMember")
+	public String deleteMember(@RequestParam(value="no", required = false) int no) {
+		
+		int data = ms.deleteMember(no);
 		
 		if(data > 0) {
 			return "1";
