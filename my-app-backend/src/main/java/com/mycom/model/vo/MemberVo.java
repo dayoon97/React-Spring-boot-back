@@ -1,56 +1,41 @@
 package com.mycom.model.vo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+
+@ToString
+@NoArgsConstructor
+@Data
+@Entity
 public class MemberVo {
-	private int no;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private String email;
+	
+	private String password;
 	private String name;
 	private String phone;
 	private String gender;
+	private Long no;
 	
-	public MemberVo() {}
-
-	public MemberVo(int no, String name, String phone, String gender) {
+	@Builder
+	public MemberVo(Long no, String name, String phone, String gender, String email, String password) {
 		super();
 		this.no = no;
 		this.name = name;
 		this.phone = phone;
 		this.gender = gender;
-	}
-
-	public int getNo() {
-		return no;
-	}
-
-	public void setNo(int no) {
-		this.no = no;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getPhone() {
-		return phone;
-	}
-
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	@Override
-	public String toString() {
-		return "MemberVo [no=" + no + ", name=" + name + ", phone=" + phone + ", gender=" + gender + "]";
+		this.email = email;
+		this.password = password;
 	}
 	
 }

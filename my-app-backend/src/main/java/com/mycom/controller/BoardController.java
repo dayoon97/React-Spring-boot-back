@@ -24,7 +24,7 @@ public class BoardController {
 		this.boardRepository = boardRepository;
 	}
 	
-	@GetMapping("/api/board")
+	@GetMapping("/")
 	public List<Board> getList(@RequestParam Map<String, String> param) {
 		
 //		String boardName = (String) param.get("boardName");
@@ -41,12 +41,9 @@ public class BoardController {
 //		boardRepository.save(board);
 //		
 		System.out.println(boardRepository.findAll());
-//		
-//		System.out.println("앙카ㅓㄴ오리ㅏ컨");
-		
-		
 		
 		return boardRepository.findAll();
 		
 	}
+	
 }

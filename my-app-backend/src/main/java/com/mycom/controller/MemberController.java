@@ -22,10 +22,10 @@ public class MemberController {
 	@Autowired
 	private MemberService ms;
 	
-	@GetMapping("/")
-	public String root() {
-		return "redirect:member";
-	}
+//	@GetMapping("/")
+//	public String root() {
+//		return "redirect:board";
+//	}
 	
 	@GetMapping("/list")
 	public List<MemberVo> selectMember(ModelAndView mv) {
