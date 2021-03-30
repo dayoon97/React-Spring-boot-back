@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.mycom.model.service.MemberService;
 import com.mycom.model.vo.MemberVo;
 
-
 @RestController
 public class MemberController {
 	
@@ -24,7 +23,7 @@ public class MemberController {
 	
 //	@GetMapping("/")
 //	public String root() {
-//		return "redirect:board";
+//		return "redirect:member";
 //	}
 	
 	@GetMapping("/list")
@@ -89,5 +88,13 @@ public class MemberController {
 		} else {
 			return "0";
 		}
+	}
+	
+	@PostMapping("/authenticate")
+	public String login(@RequestParam(value="email") String email, @RequestParam(value="password") String password) {
+		
+		System.out.println(email + password);
+		
+		return "d";
 	}
 }

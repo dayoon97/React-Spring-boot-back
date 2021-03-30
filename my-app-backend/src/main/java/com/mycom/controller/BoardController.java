@@ -14,7 +14,6 @@ import com.mycom.model.vo.Board;
 
 
 @RestController
-@EnableAutoConfiguration
 public class BoardController {
 	
 	@Autowired
@@ -24,7 +23,7 @@ public class BoardController {
 		this.boardRepository = boardRepository;
 	}
 	
-	@GetMapping("/")
+	@GetMapping("/board")
 	public List<Board> getList(@RequestParam Map<String, String> param) {
 		
 //		String boardName = (String) param.get("boardName");
@@ -40,8 +39,6 @@ public class BoardController {
 //				.build();
 //		boardRepository.save(board);
 //		
-		System.out.println(boardRepository.findAll());
-		
 		return boardRepository.findAll();
 		
 	}
