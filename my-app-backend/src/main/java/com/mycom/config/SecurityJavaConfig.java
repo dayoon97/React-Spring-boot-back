@@ -16,7 +16,7 @@ import lombok.extern.java.Log;
 
 @Log
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity			//@EnableWebSecurity와 WebSecurityConfigurerAdapter를 상속받으면 SpringSecurityFilterChain이 자동으로 포함되어짐.
 public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
 	
 	private final JwtAuthenticationFilter jwtAuthenticationFilter;
@@ -40,12 +40,15 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(jwtUserDetailsService);
+	@Override				
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {  //인증에 대한 다양한 설정을 생성할 수 있는 인증 매니저를 생성하는 빌더
+		auth.userDetailsService(jwtUserDetailsService);								//인증 매니저는 인증과 관련된 모든 정보를 UserDetails타입으로 반환한다.
+																					//유저 정보를 가져오는 서비스를 JwtUserDetailsService로 지정한 것
 	}
 	
-	@Override
+	
+	//springSecurity의 각종 설정을 하는 곳
+	@Override				//HttpSecurity : 특정 http 요청에 대해 웹 기반 보안을 구성할 수 있음.
     protected void configure(HttpSecurity http) throws Exception {
         http
 	        .httpBasic().disable()													    // security에서 기본으로 생성하는 login 페이지 사용 안함
@@ -57,7 +60,7 @@ public class SecurityJavaConfig extends WebSecurityConfigurerAdapter {
 	        		.antMatchers("/admin").hasRole("ADMIN")
 	        		.antMatchers("/*/login", "/*/signUp").permitAll()					// 가입 및 인증 주소는 누구나 접근 가능
 	        		.anyRequest().hasRole("USER")										// 그 외 나머지 요청은 모두 인증된 회원만 접근 가능
-	        .and()
+	        .and()										//UsernamePasswordAuthenticationFilter : 요청에 대한 인증을 담당하는 filter
 	        	.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 }

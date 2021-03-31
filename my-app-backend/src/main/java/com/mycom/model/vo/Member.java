@@ -19,7 +19,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Data
 @Entity
-public class MemberVo {
+public class Member {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class MemberVo {
 	private Long no;
 	
 	@Builder
-	public MemberVo(Long no, String name, String phone, String gender, String email, String password) {
+	public Member(Long no, String name, String phone, String gender, String email, String password) {
 		super();
 		this.no = no;
 		this.name = name;
@@ -41,5 +41,6 @@ public class MemberVo {
 		this.email = email;
 		this.password = password;
 	}
-	
+
+
 }

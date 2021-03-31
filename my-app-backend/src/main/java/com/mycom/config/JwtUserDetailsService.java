@@ -1,26 +1,56 @@
 package com.mycom.config;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+import com.mycom.model.service.MemberRepository;
+import com.mycom.model.vo.Member;
+import com.mycom.model.vo.Role;
+
+//들어온 email으로 Member를 찾아서 결과적으로 User 객체를 반환해주는 역할 + 컨트롤러에서 넘어온 email과 password 값이 db에 저장된 비밀번호와 일치하는지 검사
+@Service
 public class JwtUserDetailsService implements UserDetailsService {
 	
-	private final LoginRepository loginRepository;
+	//memberRepository를 통해 DB에 정보와 비교해야함
+	@Autowired
+	private  MemberRepository memberRepository;
 
-	public JwtUserDetailsService(LoginRepository loginRepository) {
-		this.loginRepository = loginRepository;
-	}
-
-	// security에서 지정한 서비스로 필수 구현해야 한다.
+	@Autowired
+    private PasswordEncoder passwordEncoder;
+	
+	//security에서 지정한 서비스로 필수 구현해야 한다.
 	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		LoginEntity login = loginRepository.getEmail(username).orElseThrow();
-		if (login.getEmail().equals(username)) {
-			return new User(login.getEmail(), login.getPassword(), new ArrayList<>());
-		} else {
-			//저장된 인증 정보를 검색한 후 존재하면 객체를 반환하고, 없으면 Exception 반환함
-			throw new UsernameNotFoundException("User not found with username : " + username);
-		}
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+															//orElseThrow -> Java Optional : null 체크를 줄일 수 있기 때문에 사용하면 매우 편리
+		Member member = memberRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("no such data"));
+		Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+		grantedAuthorities.add(new SimpleGrantedAuthority(Role.USER.getValue()));
+		if (member.getEmail().equals(email)) {
+			 grantedAuthorities.add(new SimpleGrantedAuthority(Role.ADMIN.getValue()));
+		} 
+		
+		return new User(member.getEmail(), member.getPassword(), grantedAuthorities);
 	}
+	
+	 public Member authenticateByEmailAndPassword(String email, String password) {
+	        Member member = memberRepository.findByEmail(email)
+	                .orElseThrow(() -> new UsernameNotFoundException(email));
+
+	        if(!passwordEncoder.matches(password, member.getPassword())) {
+	            throw new BadCredentialsException("Password not matched");
+	        }
+
+	        return member;
+	    }
 }

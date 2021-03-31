@@ -1,15 +1,16 @@
 package com.mycom.model.service;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.mycom.model.vo.MemberVo;
+import com.mycom.model.vo.Member;
 
 @Repository
-public interface MemberRepository extends JpaRepository <MemberVo, Long>{
+public interface MemberRepository extends JpaRepository <Member, Long>{
 
-	MemberVo findByEmail(String email);
-	//List<MemberVo> findByEmail(String email);
+	//Member findByEmail(String email);
+	public Optional<Member> findByEmail(String email);
+	
 }

@@ -2,11 +2,11 @@ package com.mycom.model.service;
 
 import java.util.List;
 
-import com.mycom.model.vo.MemberVo;
+import com.mycom.model.vo.Member;
 
 public interface MemberService {
 	
-	List<MemberVo> selectMember();
+	List<Member> selectMember();
 
 	int updateMember(String oldName, String newName);
 
