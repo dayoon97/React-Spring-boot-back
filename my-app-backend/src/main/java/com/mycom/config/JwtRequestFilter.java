@@ -10,15 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.lang.Collections;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -28,13 +29,16 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-
+    
     private static final List<String> EXCLUDE_URL =
-            Collections.unmodifiableList(
-                    Arrays.asList(
-                        "/api/member",
-                        "/authenticate"
-                    ));
+    											//unmodifiableList() -> Java9부터
+//            Collections.unmodifiableList(		//unmodifiableList() 메소드에서 리턴되는 리스트 레퍼런스는 'Read-Only'용도로만 사용할 수 있으며, 
+//                    Arrays.asList(				//수정하려는 메소드(가령 set(), add(), addAll() 등)을 호출하면 UnsupportedPoerationException 이 발생한다는 것이다.
+//                        "/api/member",			//Unmodifiable(수정 할 수 없다)
+//                        "/authenticate"
+//                    ));
+    
+    Arrays.asList("/api/member", "/authenticate");
 	
 	@Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -54,7 +58,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 System.out.println("Unable to get JWT Token");
             } catch (ExpiredJwtException e) {
                 System.out.println("JWT Token has expired");
-            }
+            } 
         } else {
             logger.warn("JWT Token does not begin with Bearer String");
         }

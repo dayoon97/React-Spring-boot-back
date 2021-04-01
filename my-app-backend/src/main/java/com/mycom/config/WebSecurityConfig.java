@@ -48,8 +48,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+        		.httpBasic().disable()
                 .csrf().disable()
-                .authorizeRequests().antMatchers("/authenticate", "/api/member").permitAll()
+                .authorizeRequests().antMatchers("/login", "/*").permitAll()
+                .antMatchers("/post").hasRole("USER")				//가입한 사람만 채팅가능
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling()
