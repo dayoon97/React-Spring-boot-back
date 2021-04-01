@@ -50,6 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
         		.httpBasic().disable()
                 .csrf().disable()
+                .cors().disable()
                 .authorizeRequests().antMatchers("/login", "/*").permitAll()
                 .antMatchers("/post").hasRole("USER")				//가입한 사람만 채팅가능
                 .anyRequest().authenticated()

@@ -20,7 +20,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	                         HttpServletResponse response,
 	                         AuthenticationException e) throws IOException, ServletException {
 
-	        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "UnAuthorized");
+	        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "접근 권한 없음");
 	   }
 
 }

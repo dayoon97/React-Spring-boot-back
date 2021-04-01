@@ -27,7 +27,7 @@ public class JwtAuthenticationController {
 		final String token = jwtTokenUtil.generateToken(member.getEmail());
 		return ResponseEntity.ok(new JwtResponse(token));
 		}
-
+		
 	}
 	
 	@Data
